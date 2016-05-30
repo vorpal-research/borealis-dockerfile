@@ -80,3 +80,11 @@ WORKDIR /home/borealis
 RUN hg clone http://kallithea.local/org/jetbrains/borealis
 WORKDIR /home/borealis/borealis
 RUN make -j8
+
+RUN yaourt -Rs --noconfirm \
+	chrpath \
+	jdk \
+	ocaml \
+	pth \
+	python-sphinx \
+	run-parts
