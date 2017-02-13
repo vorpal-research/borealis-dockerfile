@@ -45,12 +45,16 @@ RUN rm -rf package-query yaourt
 USER borealis
 RUN mkdir ~/tmp
 RUN yaourt -S --tmp ~/tmp --noconfirm \
+	boolector \
+	cvc4 \
 	jdk \
 	jsoncpp \
+	leveldb \
 	log4cpp \
 	mathsat-5 \
 	ocaml \
-	protobuf \
+	python \
+	stp \
 	tinyxml2 \
 	z3-stable-git
 
@@ -74,17 +78,21 @@ RUN yaourt -S --noconfirm \
 	cmake \
 	gperftools \
 	gtest \
+	protobuf \
 	mercurial
 
 WORKDIR /home/borealis
-RUN hg clone http://kallithea.local/org/jetbrains/borealis
+RUN hg clone https://bitbucket.org/vorpal-research/borealis
 WORKDIR /home/borealis/borealis
+RUN mkdir build
+WORKDIR /home/borealis/borealis/build
+RUN cmake ..
 RUN make -j8
 
 RUN yaourt -Rs --noconfirm \
 	chrpath \
 	jdk \
-	ocaml \
 	pth \
+	python-requests \
 	python-sphinx \
 	run-parts
